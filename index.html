@@ -1,103 +1,123 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-		<style type="text/css">
-			html, body ,a{
-				background:#000000;
-				color:#00FF00;
-				font-family:monospace;
-				height: 100%;
-				text-decoration:  none;
-				line-height: 24px;
-				font-size: 18px;
-			}
-			.tab {
-				width: 10px;
-			}
-			#menu {
-				position: absolute;
-				width: 300px;
-				height: 200px;
-				top: 50%;
-				left: 50%;
-				margin: -100px 0 0 -150px;
-				display: none;
-			}	
-			ul li {
-				list-style: none;
-			}			
-			ul li.active {
-				background: #00FF00;
-				color: #000000;
-			}
-		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script>
-		var code = "DIM FourDigitPassword INTEGER\n" +
-			"FOR i = 0 TO 9\n" +
-			"\tFOR j = 0 TO 9\n" +
-			"\t\tFOR k = 0 TO 9\n" +
-			"\t\t\tFOR l = 0 TO 9\n" +
-			"\t\t\t\tFourDigitPassword = getFourDigits (i,j,k,l)\n" +
-			"\t\t\t\tIF checkPasswordMatch(FourDigitPassword) = TRUE THEN\n" +
-			"\t\t\t\t\tGOTO 140\n" +
-			"\t\t\t\tEND\n" +
-			"\t\t\tNEXT l\n" +
-			"\t\tNEXT k\n" +
-			"\tNEXT j\n" +
-			"NEXT i\n" +
-			"PRINT FourDigitPassword\n";
-		var lineNumber = 1;
-		var charsPerKeyPress = 3;
-		
-		var menu = ["",
-			"[2] ALARM SYSTEM",
-			"[3] ALARM SYSTEM"];
-		
-		$(document).ready(function(){
-			var codeArray = code.split("");
-			var cpkp = charsPerKeyPress;
-			$( "body" ).keypress(function() {
-				if ($("#console").is(":visible")) {
-					while (cpkp > 0) {
-						cpkp--;
-						if ($("#console").text().length == 0) {
-							$("#console").append(lineNumber++ + "0 ");							
-						} else {
-							var c = codeArray.shift();
-							if (c == "\n") {
-								$("#console").append(c + lineNumber++ + "0 ");
-							} else {
-								$("#console").append(c);							
-							}
-						}
-					}
-					cpkp = charsPerKeyPress;
-					if (codeArray.length == 0) {
-						$("#console").hide();
-						$("#menu").show();
-					}
-				} else {
-					var currentActive = $("#menu li.active");
-					if (currentActive.next().length) {
-						currentActive.removeClass("active");
-						currentActive.next().addClass("active");					
-					}					
-				}
-			});			
-		});
-		</script>
-		<title>Stranger Things Hacker</title>
-		<meta name="keywords" content="stranger things hacker">
-	</head> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        html, body, a {
+            background: #000000;
+            color: #00FF00;
+            font-family: monospace;
+            height: 100%;
+            text-decoration: none;
+            line-height: 24px;
+            font-size: 18px;
+        }
 
-	<body> 
-		<pre id="console" class="outer"></pre>	
-		<ul id="menu">
-			<li class="active">[1] ALARM SYSTEM</li>
-			<li>[2] FIRE ALARM SYSTEM</li>
-			<li>[3] DOOR ACCESS</li>
-		</ul>
-	</body>
+        .tab {
+            width: 10px;
+        }
+
+        #menu {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            margin: -100px 0 0 -150px;
+            display: none;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        ul li.active {
+            background: #00FF00;
+            color: #000000;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var code = "DIM FourDigitPassword INTEGER\n" +
+            "FOR i = 0 TO 9\n" +
+            "\tFOR j = 0 TO 9\n" +
+            "\t\tFOR k = 0 TO 9\n" +
+            "\t\t\tFOR l = 0 TO 9\n" +
+            "\t\t\t\tFourDigitPassword = getFourDigits (i,j,k,l)\n" +
+            "\t\t\t\tIF checkPasswordMatch(FourDigitPassword) = TRUE THEN\n" +
+            "\t\t\t\t\tGOTO 140\n" +
+            "\t\t\t\tEND\n" +
+            "\t\t\tNEXT l\n" +
+            "\t\tNEXT k\n" +
+            "\tNEXT j\n" +
+            "NEXT i\n" +
+            "PRINT FourDigitPassword\n";
+        var lineNumber = 1;
+        var charsPerKeyPress = 3;
+
+        var menu = ["",
+            "[2] ALARM SYSTEM",
+            "[3] ALARM SYSTEM"];
+
+        $(document).ready(function () {
+            var mobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+            var codeArray = code.split("");
+            var cpkp = charsPerKeyPress;
+
+            function extracted() {
+                if ($("#console").is(":visible")) {
+                    while (cpkp > 0) {
+                        cpkp--;
+                        if ($("#console").text().length == 0) {
+                            $("#console").append(lineNumber++ + "0 ");
+                        } else {
+                            var c = codeArray.shift();
+                            if (c == "\n") {
+                                $("#console").append(c + lineNumber++ + "0 ");
+                            } else {
+                                $("#console").append(c);
+                            }
+                        }
+                    }
+                    cpkp = charsPerKeyPress;
+                    if (codeArray.length == 0) {
+                        $("#console").hide();
+                        $("#menu").show();
+                    }
+                } else {
+                    var currentActive = $("#menu li.active");
+                    if (currentActive.next().length) {
+                        currentActive.removeClass("active");
+                        currentActive.next().addClass("active");
+                    }
+                }
+            }
+
+            $("body").keypress(function () {
+                extracted();
+            });
+
+            if (mobile) {
+                var intr = setInterval(function() {
+                    var e = $.Event("keypress");
+                    e.which = 50;
+                    $("body").trigger(e);
+                    if (!$("#console").is(":visible")) clearInterval(intr);
+                }, 100)
+
+            }
+        });
+    </script>
+    <title>Stranger Things Hacker</title>
+    <meta name="keywords" content="stranger things hacker">
+</head>
+
+<body>
+<pre id="console" class="outer"></pre>
+<ul id="menu">
+    <li class="active">[1] ALARM SYSTEM</li>
+    <li>[2] FIRE ALARM SYSTEM</li>
+    <li>[3] DOOR ACCESS</li>
+</ul>
+</body>
 </html>
