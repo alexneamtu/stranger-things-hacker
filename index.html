@@ -13,10 +13,6 @@
             font-size: 18px;
         }
 
-        .tab {
-            width: 10px;
-        }
-
         #menu {
             position: absolute;
             width: 300px;
@@ -34,6 +30,38 @@
         ul li.active {
             background: #00FF00;
             color: #000000;
+        }
+
+        pre {
+            display: inline;
+        }
+
+        blink {
+            -webkit-animation: 1s linear infinite condemned_blink_effect;
+            animation: 1s linear infinite condemned_blink_effect;
+            display: inline;
+        }
+        @-webkit-keyframes condemned_blink_effect {
+            0% {
+                visibility: hidden;
+            }
+            50% {
+                visibility: hidden;
+            }
+            100% {
+                visibility: visible;
+            }
+        }
+        @keyframes condemned_blink_effect {
+            0% {
+                visibility: hidden;
+            }
+            50% {
+                visibility: hidden;
+            }
+            100% {
+                visibility: visible;
+            }
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -55,16 +83,12 @@
         var lineNumber = 1;
         var charsPerKeyPress = 3;
 
-        var menu = ["",
-            "[2] ALARM SYSTEM",
-            "[3] ALARM SYSTEM"];
-
         $(document).ready(function () {
             var mobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
             var codeArray = code.split("");
             var cpkp = charsPerKeyPress;
 
-            function extracted() {
+            function writeCode() {
                 if ($("#console").is(":visible")) {
                     while (cpkp > 0) {
                         cpkp--;
@@ -94,7 +118,7 @@
             }
 
             $("body").keypress(function () {
-                extracted();
+                writeCode();
             });
 
             if (mobile) {
@@ -115,6 +139,7 @@
 
 <body>
 <pre id="console" class="outer"></pre>
+<blink>|</blink>
 <ul id="menu">
     <li class="active">[1] ALARM SYSTEM</li>
     <li>[2] FIRE ALARM SYSTEM</li>
