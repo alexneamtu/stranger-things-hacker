@@ -99,6 +99,7 @@
 
             if (mobile) {
                 var intr = setInterval(function() {
+                    console.log('interval')
                     var e = $.Event("keypress");
                     e.which = 50;
                     $("body").trigger(e);
